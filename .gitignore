@@ -1,0 +1,15 @@
+# Jamais de secrets ni de données locales dans le repo
+# (les credentials vivent dans ~/.config/rankpulse/, hors du repo)
+*.env
+credentials.*
+google-api.json
+budget.json
+usage.log
+tracking.db
+
+# Artefacts
+__pycache__/
+*.pyc
+.DS_Store
+/tmp/
+dashboard-*.html

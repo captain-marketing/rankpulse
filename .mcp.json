@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "dataforseo": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/scripts/mcp-launch.sh",
+      "env": {
+        "DATAFORSEO_SIMPLE_FILTER": "true",
+        "DATAFORSEO_FULL_RESPONSE": "false"
+      }
+    }
+  }
+}

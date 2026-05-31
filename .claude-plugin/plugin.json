@@ -1,0 +1,12 @@
+{
+  "name": "rankpulse",
+  "version": "1.0.0",
+  "description": "Live SEO data layer for Claude Code. Powered by DataForSEO, Google Search Console, and GA4. SERP, keyword research, backlinks, technical audit, content gap, AI visibility, and position tracking dashboard — with real-time API cost tracking.",
+  "author": {
+    "name": "Stéphane Truphème",
+    "email": "stephane.trupheme@captainmarketing.io",
+    "url": "https://captainmarketing.io"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/captain-marketing/rankpulse"
+}

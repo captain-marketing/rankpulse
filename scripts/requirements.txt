@@ -1,0 +1,11 @@
+# Dépendances Python de Rankpulse.
+# cost-tracker.py n'utilise que la stdlib (aucune dépendance requise pour la Phase 1).
+# Les clients Google ci-dessous ne sont requis qu'à partir de la Phase 4 (Tier 1/2).
+
+# --- Tier 1 : Google Search Console (Phase 4) ---
+google-api-python-client>=2.0
+google-auth>=2.0
+google-auth-oauthlib>=1.0
+
+# --- Tier 2 : Google Analytics 4 (Phase 4) ---
+google-analytics-data>=0.18

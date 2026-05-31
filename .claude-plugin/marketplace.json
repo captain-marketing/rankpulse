@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "rankpulse-dev",
+  "description": "Marketplace local de développement pour le plugin Rankpulse.",
+  "owner": {
+    "name": "Stéphane Truphème",
+    "email": "stephane.trupheme@captainmarketing.io"
+  },
+  "plugins": [
+    {
+      "name": "rankpulse",
+      "description": "Live SEO data layer for Claude Code. Powered by DataForSEO, Google Search Console, and GA4.",
+      "source": "./",
+      "category": "data",
+      "author": {
+        "name": "Stéphane Truphème",
+        "email": "stephane.trupheme@captainmarketing.io"
+      },
+      "homepage": "https://github.com/captain-marketing/rankpulse"
+    }
+  ]
+}
