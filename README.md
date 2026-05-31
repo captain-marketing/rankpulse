@@ -1,5 +1,9 @@
 # Rankpulse
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/captain-marketing/rankpulse/main/docs/banner.svg" alt="Rankpulse banner" width="100%">
+</p>
+
 **Real-time SEO data layer for Claude Code.** Powered by DataForSEO, Google Search Console, and Google Analytics 4.
 
 SERP · Keywords · Backlinks · Technical Audit · Content Gap · AEO · Position Dashboard — with real-time API cost tracking.

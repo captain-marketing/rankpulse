@@ -1,0 +1,116 @@
+<svg width="1280" height="400" viewBox="0 0 1280 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d0d14"/>
+      <stop offset="50%" style="stop-color:#13132a"/>
+      <stop offset="100%" style="stop-color:#0d0d14"/>
+    </linearGradient>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#a855f7"/>
+    </linearGradient>
+    <radialGradient id="glowLeft" cx="0%" cy="0%" r="60%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.18"/>
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="glowRight" cx="100%" cy="100%" r="50%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="400" fill="url(#bg)"/>
+
+  <!-- Grid lines horizontal -->
+  <g stroke="#6366f1" stroke-opacity="0.05" stroke-width="1">
+    <line x1="0" y1="60" x2="1280" y2="60"/>
+    <line x1="0" y1="120" x2="1280" y2="120"/>
+    <line x1="0" y1="180" x2="1280" y2="180"/>
+    <line x1="0" y1="240" x2="1280" y2="240"/>
+    <line x1="0" y1="300" x2="1280" y2="300"/>
+    <line x1="0" y1="360" x2="1280" y2="360"/>
+  </g>
+  <!-- Grid lines vertical -->
+  <g stroke="#6366f1" stroke-opacity="0.05" stroke-width="1">
+    <line x1="60" y1="0" x2="60" y2="400"/>
+    <line x1="120" y1="0" x2="120" y2="400"/>
+    <line x1="180" y1="0" x2="180" y2="400"/>
+    <line x1="240" y1="0" x2="240" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/>
+    <line x1="360" y1="0" x2="360" y2="400"/>
+    <line x1="420" y1="0" x2="420" y2="400"/>
+    <line x1="480" y1="0" x2="480" y2="400"/>
+    <line x1="540" y1="0" x2="540" y2="400"/>
+    <line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="660" y1="0" x2="660" y2="400"/>
+    <line x1="720" y1="0" x2="720" y2="400"/>
+    <line x1="780" y1="0" x2="780" y2="400"/>
+    <line x1="840" y1="0" x2="840" y2="400"/>
+    <line x1="900" y1="0" x2="900" y2="400"/>
+    <line x1="960" y1="0" x2="960" y2="400"/>
+    <line x1="1020" y1="0" x2="1020" y2="400"/>
+    <line x1="1080" y1="0" x2="1080" y2="400"/>
+    <line x1="1140" y1="0" x2="1140" y2="400"/>
+    <line x1="1200" y1="0" x2="1200" y2="400"/>
+  </g>
+
+  <!-- Glow blobs -->
+  <ellipse cx="0" cy="0" rx="500" ry="400" fill="url(#glowLeft)"/>
+  <ellipse cx="1280" cy="400" rx="400" ry="320" fill="url(#glowRight)"/>
+
+  <!-- Top badge -->
+  <rect x="565" y="44" width="150" height="26" rx="13" fill="#6366f1" fill-opacity="0.12" stroke="#6366f1" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="640" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#a5b4fc" text-anchor="middle" letter-spacing="1.5">CLAUDE CODE PLUGIN</text>
+
+  <!-- Logo icon background -->
+  <rect x="502" y="96" width="64" height="64" rx="16" fill="url(#logoGrad)"/>
+  <!-- Lightning bolt -->
+  <text x="534" y="142" font-size="32" text-anchor="middle" fill="white">⚡</text>
+
+  <!-- Rankpulse wordmark -->
+  <text x="582" y="151" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="800" letter-spacing="-2" fill="#f1f5f9">Rank</text>
+  <text x="774" y="151" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="64" font-weight="800" letter-spacing="-2" fill="url(#textGrad)">pulse</text>
+
+  <!-- Tagline -->
+  <text x="640" y="198" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" fill="#64748b" text-anchor="middle">Real-time <tspan font-weight="600" fill="#94a3b8">SEO data layer</tspan> for Claude Code</text>
+  <text x="640" y="224" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16" fill="#475569" text-anchor="middle">Powered by DataForSEO · Google Search Console · GA4</text>
+
+  <!-- Pills -->
+  <!-- SERP Analysis -->
+  <rect x="222" y="258" width="136" height="32" rx="8" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="242" cy="274" r="4" fill="#22c55e"/>
+  <text x="254" y="279" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8" font-weight="500">SERP Analysis</text>
+
+  <!-- Keyword Research -->
+  <rect x="370" y="258" width="160" height="32" rx="8" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="390" cy="274" r="4" fill="#22c55e"/>
+  <text x="402" y="279" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8" font-weight="500">Keyword Research</text>
+
+  <!-- Technical Audit -->
+  <rect x="542" y="258" width="148" height="32" rx="8" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="562" cy="274" r="4" fill="#22c55e"/>
+  <text x="574" y="279" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8" font-weight="500">Technical Audit</text>
+
+  <!-- AEO -->
+  <rect x="702" y="258" width="72" height="32" rx="8" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="722" cy="274" r="4" fill="#22c55e"/>
+  <text x="734" y="279" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8" font-weight="500">AEO</text>
+
+  <!-- Position Dashboard -->
+  <rect x="786" y="258" width="178" height="32" rx="8" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="806" cy="274" r="4" fill="#22c55e"/>
+  <text x="818" y="279" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#94a3b8" font-weight="500">Position Dashboard</text>
+
+  <!-- MIT License -->
+  <rect x="976" y="258" width="96" height="32" rx="8" fill="#ffffff" fill-opacity="0.04" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="996" cy="274" r="4" fill="#64748b"/>
+  <text x="1008" y="279" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" fill="#475569" font-weight="500">MIT License</text>
+
+  <!-- Bottom URL -->
+  <text x="640" y="370" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" fill="#1e293b" text-anchor="middle" letter-spacing="0.5">github.com/captain-marketing/rankpulse</text>
+</svg>
