@@ -1,88 +1,92 @@
-# Référence des commandes Rankpulse
+# Rankpulse Commands Reference
 
-Toutes les commandes suivent le format `/rankpulse:<skill-ou-commande> [arguments]`.
-Les paramètres entre `[]` sont optionnels. Les arguments s'expriment en langage naturel.
+All commands follow the format `/rankpulse:<skill-or-command> [arguments]`.
+Parameters in `[]` are optional. Arguments are expressed in natural language.
+
+> 🇫🇷 [Version française](COMMANDS.fr.md)
 
 ---
 
-## Skills de données (invocables directement)
+## Data skills (directly invocable)
 
 ### `/rankpulse:setup`
-Configure les credentials DataForSEO et définit le budget mensuel.
+Configure DataForSEO credentials and set the monthly budget.
 
 ```
 /rankpulse:setup
 ```
-Aucun argument — le skill est interactif.
+No arguments — the skill is interactive.
 
 ---
 
 ### `/rankpulse:google-setup`
-Configure l'accès à Google Search Console (Tier 1) et Google Analytics 4 (Tier 2).
+Configure access to Google Search Console (Tier 1) and Google Analytics 4 (Tier 2).
 
 ```
 /rankpulse:google-setup
 ```
-Aucun argument — wizard interactif. Voir [GOOGLE-SETUP.md](GOOGLE-SETUP.md).
+No arguments — interactive wizard. See [GOOGLE-SETUP.md](GOOGLE-SETUP.md).
 
 ---
 
 ### `/rankpulse:serp`
-Analyse la page de résultats Google pour un mot-clé.
+Analyze the Google results page for a keyword.
 
 ```
-/rankpulse:serp <keyword> [--locale <pays/langue>] [--device desktop|mobile] [--engine google|bing|youtube]
+/rankpulse:serp <keyword> [--locale <country/language>] [--device desktop|mobile] [--engine google|bing|youtube]
 ```
 
-| Paramètre | Défaut | Exemple |
+| Parameter | Default | Example |
 |---|---|---|
-| keyword | requis | `marketing automation` |
-| locale | France / fr | `Belgique / fr` |
+| keyword | required | `marketing automation` |
+| locale | United States / en | `United Kingdom / en` |
 | device | desktop | `mobile` |
 | engine | google | `youtube` |
 
 ---
 
 ### `/rankpulse:keywords`
-Recherche de mots-clés et clustering thématique.
+Keyword research and thematic clustering.
 
 ```
 /rankpulse:keywords <keyword> [--depth quick|standard|deep] [--locale <...>]
 ```
 
-| Depth | Ce que ça fait | Coût estimé |
+| Depth | What it does | Estimated cost |
 |---|---|---|
-| quick | Idées + volumes | ~$0.01 |
+| quick | Ideas + volumes | ~$0.01 |
 | standard | + Related + Suggestions | ~$0.03 |
-| deep | + Difficulté + Intention | ~$0.08 |
+| deep | + Difficulty + Intent | ~$0.08 |
 
 ---
 
 ### `/rankpulse:backlinks`
-Analyse le profil de liens d'un domaine.
+Analyze a domain's link profile.
 
 ```
 /rankpulse:backlinks <domain> [--compare <competitor>] [--depth quick|standard]
 ```
 
+> ⚠️ Requires the DataForSEO Backlinks API ($100/month minimum). See [COST-GUIDE.md](COST-GUIDE.md).
+
 ---
 
 ### `/rankpulse:audit`
-Audit technique et on-page d'une URL (1 à 3 couches selon le tier disponible).
+Technical and on-page audit of a URL (1 to 3 layers depending on available tier).
 
 ```
 /rankpulse:audit <url> [--tier 0|1|2] [--lang fr|en]
 ```
 
-Tiers disponibles :
-- **Tier 0** : DataForSEO (technique + on-page + Core Web Vitals)
-- **Tier 1** : + Google Search Console (indexation, impressions, CTR)
-- **Tier 2** : + Google Analytics 4 (sessions organiques, conversions)
+Available tiers:
+- **Tier 0**: DataForSEO (technical + on-page + Core Web Vitals)
+- **Tier 1**: + Google Search Console (indexation, impressions, CTR)
+- **Tier 2**: + Google Analytics 4 (organic sessions, conversions)
 
 ---
 
 ### `/rankpulse:content-gap`
-Identifie les mots-clés du concurrent absents de votre domaine.
+Identify competitor keywords absent from your domain.
 
 ```
 /rankpulse:content-gap <domain> --vs <competitor> [--focus gaps|overlap] [--locale <...>]
@@ -91,7 +95,7 @@ Identifie les mots-clés du concurrent absents de votre domaine.
 ---
 
 ### `/rankpulse:aeo`
-Analyse la visibilité d'une marque dans les réponses des LLMs.
+Analyze a brand's visibility in LLM responses.
 
 ```
 /rankpulse:aeo <brand> [--engines chatgpt|gemini|perplexity|all] [--keywords "kw1,kw2"] [--compare <competitor>]
@@ -100,7 +104,7 @@ Analyse la visibilité d'une marque dans les réponses des LLMs.
 ---
 
 ### `/rankpulse:track`
-Gère le suivi de positions (base SQLite locale).
+Manage position tracking (local SQLite database).
 
 ```
 /rankpulse:track add <domain> --keywords "kw1,kw2" [--locale <...>]
@@ -112,7 +116,7 @@ Gère le suivi de positions (base SQLite locale).
 ---
 
 ### `/rankpulse:dashboard`
-Génère le rapport HTML de suivi des positions.
+Generate the position tracking HTML report.
 
 ```
 /rankpulse:dashboard [--domain <domain>] [--period 4w|8w|12w|90d] [--output <path>]
@@ -120,20 +124,20 @@ Génère le rapport HTML de suivi des positions.
 
 ---
 
-## Commandes orchestrées (lancent un agent)
+## Orchestrated commands (launch an agent)
 
 ### `/rankpulse:audit-full`
-Audit SEO complet d'un domaine (agent `seo-auditor`).
+Full SEO audit of a domain (agent `seo-auditor`).
 
 ```
 /rankpulse:audit-full <domain> [--vs <competitor>] [--tier 0|1|2] [--lang fr|en]
 ```
-Durée estimée : 3–8 minutes selon le tier et le nombre de pages auditées.
+Estimated duration: 3–8 minutes depending on tier and number of pages audited.
 
 ---
 
 ### `/rankpulse:brief`
-Génère un brief éditorial SEO (agent `brief-factory`).
+Generate an SEO editorial brief (agent `brief-factory`).
 
 ```
 /rankpulse:brief <keyword> [--domain <domain>] [--locale <...>] [--lang fr|en]
@@ -142,7 +146,7 @@ Génère un brief éditorial SEO (agent `brief-factory`).
 ---
 
 ### `/rankpulse:watch`
-Veille concurrentielle comparée (agent `competitor-watcher`).
+Comparative competitive intelligence (agent `competitor-watcher`).
 
 ```
 /rankpulse:watch <domain> --vs <competitor> [--keywords "kw1,kw2"] [--locale <...>]
@@ -150,10 +154,10 @@ Veille concurrentielle comparée (agent `competitor-watcher`).
 
 ---
 
-## Options globales
+## Global options
 
-| Option | Description | Défaut |
+| Option | Description | Default |
 |---|---|---|
-| `--lang` | Langue du livrable | `fr` |
-| `--locale` | Marché cible (pays + langue) | `France / fr` |
-| `--tier` | Tier Google APIs à utiliser | auto-détecté |
+| `--lang` | Output language | `en` |
+| `--locale` | Target market (country + language) | `United States / en` |
+| `--tier` | Google APIs tier to use | auto-detected |

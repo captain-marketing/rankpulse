@@ -1,99 +1,101 @@
-# Guide de configuration — Google APIs (Tier 1 & 2)
+# Setup Guide — Google APIs (Tier 1 & 2)
 
-Ce guide détaille la configuration des accès Google Search Console et Google Analytics 4. Ces tiers sont **100 % optionnels** — Rankpulse fonctionne sans eux.
+This guide covers configuring access to Google Search Console and Google Analytics 4. These tiers are **100% optional** — Rankpulse works without them.
 
-## Ce que vous débloquez
+> 🇫🇷 [Version française](GOOGLE-SETUP.fr.md)
 
-| Tier | Ce que ça ajoute |
+## What you unlock
+
+| Tier | What it adds |
 |---|---|
-| **Tier 1 — GSC** | Indexation réelle, impressions, CTR, position moyenne, URL Inspection |
-| **Tier 2 — GA4** | Sessions organiques, engagement, conversions, mobile/desktop |
+| **Tier 1 — GSC** | Real indexation, impressions, CTR, average position, URL Inspection |
+| **Tier 2 — GA4** | Organic sessions, engagement, conversions, mobile/desktop breakdown |
 
-## Méthode A : Service Account (comptes GCP individuels)
+## Method A: Service Account (individual GCP accounts)
 
-Le Service Account ne nécessite pas de callback navigateur et fonctionne en CI/Cowork.
+The Service Account does not require a browser callback and works in CI/Cowork.
 
-> **⚠️ Google Workspace** — Si votre adresse email est gérée par une organisation Google Workspace, le Service Account sera probablement **bloqué** : GSC et GA4 renvoient "adresse e-mail introuvable" car le SA n'est pas dans l'annuaire identitaire de votre domaine. Utilisez la **Méthode B (OAuth)** dans ce cas.
+> **⚠️ Google Workspace** — If your email address is managed by a Google Workspace organisation, the Service Account will likely be **blocked**: GSC and GA4 return "email address not found" because the SA is not in your domain's identity directory. Use **Method B (OAuth)** in that case.
 
-### 1. Créer un projet GCP
+### 1. Create a GCP project
 
-1. Aller sur [console.cloud.google.com](https://console.cloud.google.com)
-2. Créer un nouveau projet (ex. `rankpulse`) ou en sélectionner un existant
-3. **APIs et services** → **Bibliothèque** → Activer :
+1. Go to [console.cloud.google.com](https://console.cloud.google.com)
+2. Create a new project (e.g. `rankpulse`) or select an existing one
+3. **APIs & Services** → **Library** → Enable:
    - `Google Search Console API`
    - `Google Analytics Data API`
 
-### 2. Créer le Service Account
+### 2. Create the Service Account
 
-1. **IAM et administration** → **Comptes de service** → **Créer un compte de service**
-2. Nom : `rankpulse-sa` · Description : `Rankpulse SEO plugin`
-3. Ignorer les étapes "Rôles" (les permissions se gèrent côté GSC/GA4)
-4. **Clés** → **Ajouter une clé** → **JSON** → Télécharger
+1. **IAM & Admin** → **Service Accounts** → **Create Service Account**
+2. Name: `rankpulse-sa` · Description: `Rankpulse SEO plugin`
+3. Skip the "Roles" steps (permissions are managed in GSC/GA4)
+4. **Keys** → **Add Key** → **JSON** → Download
 
-### 3. Ajouter les champs Rankpulse au fichier JSON
+### 3. Add Rankpulse fields to the JSON file
 
-Ouvrir le fichier téléchargé et ajouter ces champs à la racine :
+Open the downloaded file and add these fields at the root:
 
 ```json
 {
   "auth_type": "service_account",
-  "site_url": "https://votre-domaine.com/",
+  "site_url": "https://your-domain.com/",
   "ga4_property_id": "123456789",
-  ...champs Service Account existants...
+  ...existing service account fields...
 }
 ```
 
-> `site_url` doit correspondre **exactement** à la propriété dans GSC (avec ou sans `/`, http vs https — ce sont des propriétés différentes).
+> `site_url` must match **exactly** the property in GSC (with or without trailing `/`, http vs https — these are different properties).
 
-### 4. Donner accès à GSC (Tier 1)
+### 4. Grant GSC access (Tier 1)
 
-1. [Google Search Console](https://search.google.com/search-console) → sélectionner la propriété
-2. **Paramètres** → **Utilisateurs et autorisations** → **Ajouter un utilisateur**
-3. Email : l'adresse `client_email` du Service Account (ex. `rankpulse-sa@projet.iam.gserviceaccount.com`)
-4. Permission : **Propriétaire** ou **Éditeur complet**
+1. [Google Search Console](https://search.google.com/search-console) → select your property
+2. **Settings** → **Users and permissions** → **Add user**
+3. Email: the `client_email` from the Service Account (e.g. `rankpulse-sa@project.iam.gserviceaccount.com`)
+4. Permission: **Owner** or **Full**
 
-### 5. Donner accès à GA4 (Tier 2)
+### 5. Grant GA4 access (Tier 2)
 
-1. [Google Analytics](https://analytics.google.com) → Administration → sélectionner la propriété GA4
-2. **Gestion des accès** → **+** → Ajouter le `client_email` du Service Account
-3. Rôle : **Lecteur**
-4. Récupérer le **GA4 Property ID** : affiché sous le nom de la propriété (format numérique, ex. `123456789`)
+1. [Google Analytics](https://analytics.google.com) → Admin → select your GA4 property
+2. **Access Management** → **+** → Add the `client_email` from the Service Account
+3. Role: **Viewer**
+4. Get the **GA4 Property ID**: displayed under the property name (numeric format, e.g. `123456789`)
 
-### 6. Installer le fichier
+### 6. Install the file
 
 ```bash
-cp ~/Téléchargements/rankpulse-sa-key.json ~/.config/rankpulse/google-api.json
+cp ~/Downloads/rankpulse-sa-key.json ~/.config/rankpulse/google-api.json
 chmod 600 ~/.config/rankpulse/google-api.json
 ```
 
-### 7. Tester
+### 7. Test
 
 ```
 /rankpulse:google-setup
 ```
-Le skill lance automatiquement `tests/test-google-apis.sh` à la fin.
+The skill runs `tests/test-google-apis.sh` automatically at the end.
 
-Ou directement :
+Or directly:
 ```bash
 bash ~/.local/share/claude-plugins/rankpulse/tests/test-google-apis.sh
 ```
 
 ---
 
-## Méthode B : OAuth (recommandée pour Google Workspace)
+## Method B: OAuth (recommended for Google Workspace)
 
-À utiliser si votre domaine est géré par Google Workspace, ou si vous n'avez pas accès à GCP pour créer un Service Account.
+Use this if your domain is managed by Google Workspace, or if you don't have GCP access to create a Service Account.
 
-1. Dans GCP → **Identifiants** → **Créer des identifiants** → **ID client OAuth**
-2. Type : **Application de bureau**
-3. Télécharger le fichier client (`client_id` + `client_secret`)
-4. Obtenir un `refresh_token` via le flux OAuth (voir [guide Google](https://developers.google.com/identity/protocols/oauth2/native-app))
-5. Écrire `~/.config/rankpulse/google-api.json` :
+1. In GCP → **Credentials** → **Create Credentials** → **OAuth client ID**
+2. Type: **Desktop app**
+3. Download the client file (`client_id` + `client_secret`)
+4. Get a `refresh_token` via the OAuth flow (see [Google guide](https://developers.google.com/identity/protocols/oauth2/native-app))
+5. Write `~/.config/rankpulse/google-api.json`:
 
 ```json
 {
   "auth_type": "oauth",
-  "site_url": "https://votre-domaine.com/",
+  "site_url": "https://your-domain.com/",
   "ga4_property_id": "123456789",
   "client_id": "...",
   "client_secret": "...",
@@ -103,13 +105,13 @@ bash ~/.local/share/claude-plugins/rankpulse/tests/test-google-apis.sh
 
 ---
 
-## Résolution des problèmes
+## Troubleshooting
 
-| Erreur | Cause | Solution |
+| Error | Cause | Solution |
 |---|---|---|
-| `403 Forbidden` GSC | Email SA pas ajouté à la propriété | Étape 4 |
-| "adresse e-mail introuvable" GSC/GA4 | Compte Google Workspace — SA bloqué par l'annuaire | Utiliser **Méthode B (OAuth)** |
-| `site_url` ne correspond pas | Format exact différent (http/https, /final) | Vérifier dans GSC → Paramètres |
-| `ga4_property_id manquant` | Champ absent du JSON | Ajouter le champ dans `google-api.json` |
-| `Dépendance manquante` dans ga4_client | Python appelé depuis un env sans site-packages | `python3 scripts/ga4_client.py --days 7` directement |
-| `google-analytics-data` manquant | Dépendances Python non installées | `pip install -r scripts/requirements.txt` |
+| `403 Forbidden` GSC | SA email not added to the property | Step 4 |
+| "Email address not found" GSC/GA4 | Google Workspace — SA blocked by identity directory | Use **Method B (OAuth)** |
+| `site_url` mismatch | Exact format difference (http/https, trailing slash) | Check in GSC → Settings |
+| `ga4_property_id missing` | Field absent from JSON | Add the field to `google-api.json` |
+| `Missing dependency` in ga4_client | Python called from env without site-packages | Run `python3 scripts/ga4_client.py --days 7` directly |
+| `google-analytics-data` missing | Python dependencies not installed | `pip install -r scripts/requirements.txt` |

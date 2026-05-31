@@ -1,47 +1,50 @@
 # Changelog
 
-Toutes les modifications notables de Rankpulse sont documentées ici.
-Format basé sur [Keep a Changelog](https://keepachangelog.com/fr/1.0.0/).
+All notable changes to Rankpulse are documented here.
+Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+> 🇫🇷 [Version française](CHANGELOG.fr.md)
 
 ---
 
 ## [1.0.0] — 2026-05-30
 
-### Ajouté
+### Added
 
 **Skills (10)**
-- `setup` — Configuration credentials DataForSEO + budget mensuel + test connexion
-- `google-setup` — Wizard Service Account / OAuth pour GSC (Tier 1) et GA4 (Tier 2)
-- `serp` — Analyse SERP Google/Bing/YouTube : top 10, SERP features, intention dominante
+- `setup` — DataForSEO credentials configuration + monthly budget + connection test
+- `google-setup` — Service Account / OAuth wizard for GSC (Tier 1) and GA4 (Tier 2)
+- `serp` — SERP analysis Google/Bing/YouTube: top 10, SERP features, dominant intent
 - `keywords` — Keyword research + clustering (quick / standard / deep)
-- `backlinks` — Profil de liens : autorité, spam score, ancres, comparaison concurrent
-- `audit` — Audit 3 couches : technique DataForSEO + visibilité GSC + performance GA4
-- `content-gap` — Gap analysis concurrentiel : mots-clés absents, clusters manquants
-- `aeo` — AI Engine Optimization : visibilité marque dans les LLMs (ChatGPT, Gemini…)
-- `track` — Suivi positions SQLite local avec automatisation hebdomadaire (launchd/cron)
-- `dashboard` — Dashboard HTML standalone : courbes SVG, alertes, résumé coûts
+- `backlinks` — Link profile: authority, spam score, anchors, competitor comparison
+- `audit` — 3-layer audit: technical DataForSEO + GSC visibility + GA4 performance
+- `content-gap` — Competitive gap analysis: missing keywords, missing clusters
+- `aeo` — AI Engine Optimization: brand visibility in LLMs (ChatGPT, Gemini…)
+- `track` — Local SQLite position tracking with weekly automation (launchd/cron)
+- `dashboard` — Standalone HTML dashboard: inline SVG curves, alerts, cost summary
 
 **Agents (3)**
-- `seo-auditor` — Audit complet scoré 0-100 : SERP + backlinks + audit + gap en séquence
-- `brief-factory` — Brief éditorial SEO : SERP → keywords → gap → structure complète
-- `competitor-watcher` — Veille comparée : positions, backlinks, gaps, alertes delta
+- `seo-auditor` — Full domain audit scored 0-100: SERP + backlinks + audit + gap in sequence
+- `brief-factory` — SEO editorial brief: SERP → keywords → gap → complete structure
+- `competitor-watcher` — Comparative intelligence: positions, backlinks, gaps, delta alerts
 
 **Commands (3)**
-- `audit-full` — Déclenche l'agent `seo-auditor`
-- `brief` — Déclenche l'agent `brief-factory`
-- `watch` — Déclenche l'agent `competitor-watcher`
+- `audit-full` — Triggers the `seo-auditor` agent
+- `brief` — Triggers the `brief-factory` agent
+- `watch` — Triggers the `competitor-watcher` agent
 
 **Infrastructure**
-- MCP DataForSEO `v2.9.4` épinglé via launcher sécurisé (`mcp-launch.sh`)
-- Credentials via `~/.config/rankpulse/credentials.env` (0600) — jamais dans le repo
-- Field filtering natif : `DATAFORSEO_SIMPLE_FILTER=true` côté serveur MCP
-- Hooks `PreToolUse` + `PostToolUse` + `SessionEnd` pour suivi coûts en temps réel
-- `cost-tracker.py` : lit le coût réel des réponses DataForSEO, log JSONL, alerte budget
-- `gsc_client.py` + `ga4_client.py` : clients Python Tier 1/2 (Service Account ou OAuth)
-- `dashboard-generator.py` : HTML standalone, SVG inline, zéro dépendance externe
-- `snapshot.sh` : snapshots SQLite via launchd/cron (remplace le hook Schedule inexistant)
+- DataForSEO MCP `v2.9.4` pinned via secure launcher (`mcp-launch.sh`)
+- Credentials via `~/.config/rankpulse/credentials.env` (0600) — never in the repo
+- Native field filtering: `DATAFORSEO_SIMPLE_FILTER=true` on the MCP server side
+- `PreToolUse` + `PostToolUse` + `SessionEnd` hooks for real-time cost tracking
+- `cost-tracker.py`: reads actual cost from DataForSEO responses, logs JSONL, budget alert
+- `gsc_client.py` + `ga4_client.py`: Python Tier 1/2 clients (Service Account or OAuth)
+- `dashboard-generator.py`: standalone HTML report, inline SVG, no external dependencies
+- `snapshot.sh`: SQLite snapshots via launchd/cron (replaces the non-existent Schedule hook)
 
 **Documentation**
 - `docs/SETUP.md`, `docs/GOOGLE-SETUP.md`, `docs/COMMANDS.md`
 - `docs/COST-GUIDE.md`, `docs/DASHBOARD.md`
 - `tests/test-connections.sh`, `tests/test-google-apis.sh`
+- Full bilingual documentation (English + French)

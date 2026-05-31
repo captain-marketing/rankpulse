@@ -1,46 +1,48 @@
-# Guide de configuration — DataForSEO
+# Setup Guide — DataForSEO
 
-Ce guide explique comment connecter Rankpulse à votre compte DataForSEO.
+This guide explains how to connect Rankpulse to your DataForSEO account.
 
-## Prérequis
-- Un compte DataForSEO actif ([dataforseo.com](https://dataforseo.com))
-- Python 3 installé
-- Claude Code avec le plugin Rankpulse chargé
+> 🇫🇷 [Version française](SETUP.fr.md)
 
-## Étape 1 — Récupérer vos identifiants
+## Requirements
+- An active DataForSEO account ([dataforseo.com](https://dataforseo.com))
+- Python 3 installed
+- Claude Code with the Rankpulse plugin loaded
 
-Dans votre espace client DataForSEO :
-1. Connectez-vous sur [app.dataforseo.com](https://app.dataforseo.com)
-2. Allez dans **API Access** → **API Credentials**
-3. Notez votre **Login** (`DATAFORSEO_USERNAME`) et votre **Password** (`DATAFORSEO_PASSWORD`)
+## Step 1 — Get your credentials
 
-> ⚠️ Ce ne sont pas les identifiants de votre compte client — ce sont les clés API spécifiques, générées séparément.
+In your DataForSEO dashboard:
+1. Log in at [app.dataforseo.com](https://app.dataforseo.com)
+2. Go to **API Access** → **API Credentials**
+3. Note your **Login** (`DATAFORSEO_USERNAME`) and **Password** (`DATAFORSEO_PASSWORD`)
 
-## Étape 2 — Configurer via le skill
+> ⚠️ These are not your account login credentials — they are separate API keys generated specifically for API access.
 
-La façon la plus simple :
+## Step 2 — Configure via skill
+
+The easiest way:
 ```
 /rankpulse:setup
 ```
-Le skill vous guide interactivement et écrit le fichier de credentials.
+The skill guides you interactively and writes the credentials file.
 
-## Étape 3 — Configuration manuelle (alternative)
+## Step 3 — Manual configuration (alternative)
 
-Si vous préférez configurer manuellement :
+If you prefer to configure manually:
 
 ```bash
 mkdir -p ~/.config/rankpulse
 chmod 700 ~/.config/rankpulse
 
 cat > ~/.config/rankpulse/credentials.env << 'EOF'
-DATAFORSEO_USERNAME=votre_login_api
-DATAFORSEO_PASSWORD=votre_password_api
+DATAFORSEO_USERNAME=your_api_login
+DATAFORSEO_PASSWORD=your_api_password
 EOF
 
 chmod 600 ~/.config/rankpulse/credentials.env
 ```
 
-## Étape 4 — Définir un budget mensuel (recommandé)
+## Step 4 — Set a monthly budget (recommended)
 
 ```bash
 cat > ~/.config/rankpulse/budget.json << 'EOF'
@@ -49,32 +51,32 @@ EOF
 chmod 600 ~/.config/rankpulse/budget.json
 ```
 
-Rankpulse vous avertira quand ce seuil sera atteint (sans bloquer les appels).
+Rankpulse will warn you when this threshold is reached (without blocking calls).
 
-## Étape 5 — Tester la connexion
+## Step 5 — Test the connection
 
 ```bash
 bash ~/.local/share/claude-plugins/rankpulse/tests/test-connections.sh
 ```
 
-Résultat attendu :
+Expected output:
 ```
-✅ Connexion OK — Ok.
-   Solde restant : $XX.XX
+✅ Connection OK — Ok.
+   Remaining balance: $XX.XX
 ```
 
-## Résolution des problèmes
+## Troubleshooting
 
-| Erreur | Cause probable | Solution |
+| Error | Likely cause | Solution |
 |---|---|---|
-| HTTP 401 | Identifiants incorrects | Vérifier login/password dans l'espace client DataForSEO |
-| `DATAFORSEO_USERNAME manquant` | credentials.env absent ou mal sourcé | Relancer `/rankpulse:setup` |
-| Solde $0.00 | Compte vide | Recharger le solde sur [app.dataforseo.com](https://app.dataforseo.com) |
+| HTTP 401 | Incorrect credentials | Check login/password in your DataForSEO dashboard |
+| `DATAFORSEO_USERNAME missing` | credentials.env absent or not sourced | Re-run `/rankpulse:setup` |
+| Balance $0.00 | Empty account | Top up balance at [app.dataforseo.com](https://app.dataforseo.com) |
 
-## Fichiers créés
+## Files created
 
-| Fichier | Contenu | Permissions |
+| File | Content | Permissions |
 |---|---|---|
-| `~/.config/rankpulse/credentials.env` | Login + password DataForSEO | `0600` |
-| `~/.config/rankpulse/budget.json` | Budget mensuel en USD | `0600` |
-| `~/.config/rankpulse/usage.log` | Historique des coûts (JSONL) | `0644` |
+| `~/.config/rankpulse/credentials.env` | DataForSEO login + password | `0600` |
+| `~/.config/rankpulse/budget.json` | Monthly budget in USD | `0600` |
+| `~/.config/rankpulse/usage.log` | Cost history (JSONL) | `0644` |

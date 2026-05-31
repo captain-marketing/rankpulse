@@ -1,10 +1,12 @@
-# Guide des coûts API DataForSEO
+# DataForSEO API Cost Guide
 
-Rankpulse suit les coûts en temps réel et vous avertit quand votre budget mensuel est atteint. Ce guide détaille le coût par endpoint et les bonnes pratiques pour maîtriser les dépenses.
+Rankpulse tracks costs in real time and alerts you when your monthly budget is reached. This guide details the cost per endpoint and best practices for keeping expenses under control.
 
-## Coûts par commande
+> 🇫🇷 [Version française](COST-GUIDE.fr.md)
 
-| Commande | Endpoints utilisés | Coût estimé par appel |
+## Cost per command
+
+| Command | Endpoints used | Estimated cost per call |
 |---|---|---|
 | `/rankpulse:serp` | SERP Organic Live Advanced | $0.002 – $0.006 |
 | `/rankpulse:keywords` (quick) | Labs Keyword Ideas | ~$0.010 |
@@ -14,64 +16,64 @@ Rankpulse suit les coûts en temps réel et vous avertit quand votre budget mens
 | `/rankpulse:backlinks` (standard) | + Referring Domains + Anchors | ~$0.030 |
 | `/rankpulse:audit` (Tier 0) | On-Page Instant + Lighthouse | ~$0.015 |
 | `/rankpulse:content-gap` | Domain Intersection + Ranked Keywords | ~$0.040 |
-| `/rankpulse:aeo` (par moteur) | LLM Mentions + ChatGPT Scraper | $0.050 – $0.200 |
-| `/rankpulse:track snapshot` (par mot-clé) | SERP Organic Live Advanced | $0.002 – $0.006 |
-| `/rankpulse:audit-full` (agent complet) | Combinaison de 4–5 appels | $0.10 – $0.25 |
+| `/rankpulse:aeo` (per engine) | LLM Mentions + ChatGPT Scraper | $0.050 – $0.200 |
+| `/rankpulse:track snapshot` (per keyword) | SERP Organic Live Advanced | $0.002 – $0.006 |
+| `/rankpulse:audit-full` (full agent) | Combination of 4–5 calls | $0.10 – $0.25 |
 | `/rankpulse:brief` (agent) | SERP + Keywords + Gap | ~$0.08 |
 | `/rankpulse:watch` (agent) | SERP × N + Backlinks + Gap | $0.05 – $0.15 |
 
-> Les coûts DataForSEO sont facturés en USD, prélevés sur votre solde de compte. Ils varient selon le volume de résultats demandés.
+> DataForSEO costs are billed in USD, deducted from your account balance. They vary based on the volume of results requested.
 
-## ⚠️ API Backlinks — engagement minimum requis
+## ⚠️ Backlinks API — minimum commitment required
 
-L'API Backlinks DataForSEO nécessite un **engagement minimum de $100/mois** souscrit séparément. Sans cet abonnement, toute requête backlinks renvoie une erreur `40204`.
+The DataForSEO Backlinks API requires a **minimum commitment of $100/month**, subscribed separately. Without this subscription, any backlinks request returns error `40204`.
 
-- Les skills `/rankpulse:backlinks` et `/rankpulse:watch` fonctionnent en mode dégradé sans backlinks (positions SERP et gap analysis disponibles, profil de liens indisponible).
-- Pour activer : contacter DataForSEO support et demander l'accès Backlinks API.
-- Alternative gratuite pour estimer l'autorité : Ahrefs Free (Ahrefs.com → Free Backlink Checker).
+- The `/rankpulse:backlinks` and `/rankpulse:watch` skills operate in degraded mode without backlinks (SERP positions and gap analysis remain available, link profile is unavailable).
+- To activate: contact DataForSEO support and request Backlinks API access.
+- Free alternative to estimate authority: Ahrefs Free (Ahrefs.com → Free Backlink Checker).
 
-## Endpoints les plus coûteux
+## Most expensive endpoints
 
-**À surveiller particulièrement :**
+**Watch these particularly:**
 
-1. **AEO / LLM Mentions** — $0.05 à $0.20 par requête/moteur. Utiliser `--engines chatgpt` en ciblé plutôt que `--engines all`.
-2. **Keywords deep** — Le mode `deep` enchaîne 4 endpoints. Sur une liste de 50 mots-clés, comptez $2–4.
-3. **Backlinks sur gros domaines** — Les referring domains et anchors sur les domaines avec des millions de backlinks peuvent renvoyer de gros volumes.
+1. **AEO / LLM Mentions** — $0.05 to $0.20 per query/engine. Use `--engines chatgpt` in targeted mode rather than `--engines all`.
+2. **Keywords deep** — The `deep` mode chains 4 endpoints. On a list of 50 keywords, expect $2–4.
+3. **Backlinks on large domains** — Referring domains and anchors on domains with millions of backlinks can return large volumes.
 
-## Suivi des coûts en temps réel
+## Real-time cost tracking
 
-Rankpulse enregistre chaque coût réel (champ `cost` des réponses DataForSEO) dans `~/.config/rankpulse/usage.log` :
+Rankpulse records each actual cost (the `cost` field in DataForSEO responses) to `~/.config/rankpulse/usage.log`:
 
 ```json
 {"ts": "2026-05-30T10:00:00+00:00", "tool": "mcp__dataforseo__serp_organic_live_advanced", "cost": 0.003}
 ```
 
-En fin de session, le coût du mois est affiché automatiquement.
+At the end of each session, the month's total cost is displayed automatically.
 
-## Configurer un budget mensuel
+## Set a monthly budget
 
 ```bash
 echo '{ "monthly_usd": 50 }' > ~/.config/rankpulse/budget.json
 chmod 600 ~/.config/rankpulse/budget.json
 ```
 
-Rankpulse affiche un avertissement dès que le budget est atteint (sans bloquer).
+Rankpulse displays a warning when the budget is reached (without blocking calls).
 
-## Bonnes pratiques
+## Best practices
 
-**Réduire les coûts :**
-- Utiliser `depth=quick` pour l'exploration initiale, `standard` ou `deep` uniquement pour les sujets validés.
-- Pour le tracking, limiter à 10–15 mots-clés prioritaires par domaine.
-- Sur l'AEO, tester un moteur à la fois avant de lancer `--engines all`.
-- Éviter les snapshots manuels répétés — laisser l'automatisation hebdomadaire faire le travail.
+**Reduce costs:**
+- Use `depth=quick` for initial exploration, `standard` or `deep` only for validated topics.
+- For tracking, limit to 10–15 priority keywords per domain.
+- For AEO, test one engine at a time before running `--engines all`.
+- Avoid repeated manual snapshots — let the weekly automation do the work.
 
-**Estimation avant un gros appel :**
-Les skills affichent le coût estimé avant toute requête > $0.01. Une confirmation est demandée au-dessus de $0.50.
+**Estimate before a large call:**
+Skills display the estimated cost before any request > $0.01. Confirmation is requested above $0.50.
 
-## Budget mensuel recommandé
+## Recommended monthly budget
 
-| Profil | Usage typique | Budget suggéré |
+| Profile | Typical usage | Suggested budget |
 |---|---|---|
-| Découverte / test | Quelques analyses par semaine | $10–20/mois |
-| Consultant solo | 5–10 domaines suivis, audits réguliers | $30–60/mois |
-| Agence (10+ clients) | Audits full + tracking intensif + AEO | $100–200/mois |
+| Discovery / testing | A few analyses per week | $10–20/month |
+| Solo consultant | 5–10 domains tracked, regular audits | $30–60/month |
+| Agency (10+ clients) | Full audits + intensive tracking + AEO | $100–200/month |

@@ -1,29 +1,31 @@
 # Rankpulse
 
-**Couche données SEO en temps réel pour Claude Code.** Propulsé par DataForSEO, Google Search Console et Google Analytics 4.
+**Real-time SEO data layer for Claude Code.** Powered by DataForSEO, Google Search Console, and Google Analytics 4.
 
-SERP · Keywords · Backlinks · Audit technique · Content Gap · AEO · Dashboard de positions — avec suivi des coûts API en temps réel.
+SERP · Keywords · Backlinks · Technical Audit · Content Gap · AEO · Position Dashboard — with real-time API cost tracking.
+
+> 🇫🇷 [Version française](README.fr.md)
 
 ---
 
-## Fonctionnalités
+## Features
 
-| Skill | Commande | Ce que ça fait |
+| Skill | Command | What it does |
 |---|---|---|
-| Setup | `/rankpulse:setup` | Configure les credentials DataForSEO + budget mensuel |
-| SERP | `/rankpulse:serp` | Analyse Google/Bing/YouTube : top 10, features, intention |
-| Keywords | `/rankpulse:keywords` | Research + clustering thématique (volume, difficulté, intention) |
-| Backlinks | `/rankpulse:backlinks` | Profil de liens, spam score, comparaison concurrent |
-| Audit | `/rankpulse:audit` | Audit technique + on-page (3 couches : DataForSEO + GSC + GA4) |
-| Content Gap | `/rankpulse:content-gap` | Mots-clés du concurrent absents de votre domaine |
-| AEO | `/rankpulse:aeo` | Visibilité de votre marque dans les LLMs (ChatGPT, Gemini…) |
-| Track | `/rankpulse:track` | Suivi de positions hebdomadaire en SQLite local |
-| Dashboard | `/rankpulse:dashboard` | Rapport HTML interactif standalone (zéro serveur) |
+| Setup | `/rankpulse:setup` | Configure DataForSEO credentials + monthly budget |
+| SERP | `/rankpulse:serp` | Google/Bing/YouTube analysis: top 10, SERP features, intent |
+| Keywords | `/rankpulse:keywords` | Keyword research + thematic clustering (volume, difficulty, intent) |
+| Backlinks | `/rankpulse:backlinks` | Link profile, spam score, competitor comparison |
+| Audit | `/rankpulse:audit` | Technical + on-page audit (3 layers: DataForSEO + GSC + GA4) |
+| Content Gap | `/rankpulse:content-gap` | Competitor keywords absent from your domain |
+| AEO | `/rankpulse:aeo` | Brand visibility in LLMs (ChatGPT, Gemini…) |
+| Track | `/rankpulse:track` | Weekly position tracking in local SQLite |
+| Dashboard | `/rankpulse:dashboard` | Standalone interactive HTML report (no server required) |
 
-**Agents orchestrés :**
-- `/rankpulse:audit-full <domain>` — Audit complet scoré 0-100 + plan d'action
-- `/rankpulse:brief <keyword>` — Brief éditorial SEO complet prêt à utiliser
-- `/rankpulse:watch <domain> --vs <competitor>` — Veille concurrentielle comparée
+**Orchestrated agents:**
+- `/rankpulse:audit-full <domain>` — Full SEO audit scored 0-100 + action plan
+- `/rankpulse:brief <keyword>` — Complete SEO editorial brief ready to use
+- `/rankpulse:watch <domain> --vs <competitor>` — Comparative competitive intelligence
 
 ---
 
@@ -33,86 +35,86 @@ SERP · Keywords · Backlinks · Audit technique · Content Gap · AEO · Dashbo
 /plugin install github:captain-marketing/rankpulse
 ```
 
-Puis configurer les credentials :
+Then configure credentials:
 ```
 /rankpulse:setup
 ```
 
 ---
 
-## Prérequis
+## Requirements
 
-- **Claude Code** (CLI ou desktop)
-- **Compte DataForSEO** — [dataforseo.com](https://dataforseo.com) · ~$5 de crédit pour démarrer
-- **Python 3** — pour les scripts et les clients Google (Phase 4+)
-- **Node.js + npx** — pour le serveur MCP DataForSEO
+- **Claude Code** (CLI or desktop)
+- **DataForSEO account** — [dataforseo.com](https://dataforseo.com) · ~$5 credit to get started
+- **Python 3** — for scripts and Google clients (Tier 1+)
+- **Node.js + npx** — for the DataForSEO MCP server
 
-**Google APIs (optionnel) :**
-- Service Account GCP pour Google Search Console (Tier 1)
-- + GA4 Property ID pour Google Analytics 4 (Tier 2)
+**Google APIs (optional):**
+- GCP Service Account or OAuth client for Google Search Console (Tier 1)
+- + GA4 Property ID for Google Analytics 4 (Tier 2)
 
 ---
 
-## Démarrage rapide
+## Quick Start
 
 ```
-# 1. Configurer DataForSEO
+# 1. Configure DataForSEO
 /rankpulse:setup
 
-# 2. Analyser une SERP
-/rankpulse:serp "marketing automation" --locale "France / fr"
+# 2. Analyze a SERP
+/rankpulse:serp "marketing automation" --locale "United States / en"
 
-# 3. Rechercher des mots-clés
+# 3. Keyword research
 /rankpulse:keywords "marketing automation" --depth standard
 
-# 4. Auditer une page
-/rankpulse:audit https://votre-site.com/votre-page
+# 4. Audit a page
+/rankpulse:audit https://your-site.com/your-page
 
-# 5. Tracker des positions
-/rankpulse:track add votre-site.com --keywords "kw1,kw2,kw3"
+# 5. Track positions
+/rankpulse:track add your-site.com --keywords "kw1,kw2,kw3"
 /rankpulse:dashboard
 ```
 
 ---
 
-## Système de tiers Google
+## Google Tier System
 
-Rankpulse est **100 % fonctionnel sans aucun credential Google** (Tier 0). Les tiers suivants sont des enrichissements optionnels :
+Rankpulse is **100% functional without any Google credentials** (Tier 0). The following tiers are optional enhancements:
 
-| Tier | Prérequis | Ce que ça débloque |
+| Tier | Requirements | What it unlocks |
 |---|---|---|
-| 0 | DataForSEO uniquement | Tout (SERP, keywords, backlinks, audit technique, gap) |
-| 1 | + Google Search Console | Indexation réelle, impressions, CTR, position réelle |
-| 2 | + GA4 Property ID | Sessions organiques, conversions, engagement |
+| 0 | DataForSEO only | Everything (SERP, keywords, backlinks, technical audit, gap) |
+| 1 | + Google Search Console | Real indexation, impressions, CTR, actual position |
+| 2 | + GA4 Property ID | Organic sessions, conversions, engagement |
 
 ---
 
-## Sécurité et confidentialité
+## Security & Privacy
 
-- Credentials **jamais** dans le repo — stockés dans `~/.config/rankpulse/` en `0600`
-- Données de suivi **100 % locales** (SQLite, aucune transmission externe)
-- Coûts API **lus dans les réponses** DataForSEO (pas estimés), loggés localement
+- Credentials **never** in the repo — stored in `~/.config/rankpulse/` with `0600` permissions
+- Tracking data **100% local** (SQLite, no external transmission)
+- API costs **read from DataForSEO responses** (not estimated), logged locally
 
 ---
 
 ## Documentation
 
-- [Guide de configuration DataForSEO](docs/SETUP.md)
-- [Guide Google APIs (GSC + GA4)](docs/GOOGLE-SETUP.md)
-- [Référence des commandes](docs/COMMANDS.md)
-- [Guide des coûts](docs/COST-GUIDE.md)
-- [Guide du dashboard](docs/DASHBOARD.md)
+- [DataForSEO Setup Guide](docs/SETUP.md)
+- [Google APIs Guide (GSC + GA4)](docs/GOOGLE-SETUP.md)
+- [Commands Reference](docs/COMMANDS.md)
+- [Cost Guide](docs/COST-GUIDE.md)
+- [Dashboard Guide](docs/DASHBOARD.md)
 
 ---
 
-## Auteur
+## Author
 
 **Stéphane Truphème** · [Captain Marketing](https://captainmarketing.io)
 
-Ce plugin est **indépendant** de DataForSEO, Google et Anthropic.
+This plugin is **independent** from DataForSEO, Google, and Anthropic.
 
 ---
 
-## Licence
+## License
 
-MIT — voir [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE)
